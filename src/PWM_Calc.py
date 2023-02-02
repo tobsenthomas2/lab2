@@ -6,13 +6,36 @@ Multiply the error signal by a control gain called KP to produce a result called
 \mathrm{PWM} = K_p * (\theta_{setpoint} - \theta_{actual})
 
 Send the actuation signal to the motor driver which you have already written to control the magnitude and direction of motor torque."""
+#import matplotlib as 
 
-
-def PWM_Calc(Theta_Set, Theta_Act, KP):
-        
-    PWM = (Theta_Set - Theta_Act)*KP
+class PWM_Calc:
+    time = []
+    position = []
+    error = []
     
-    return PWM
+    def set_KP(self, KP):
+        
+        self.KP_set = KP
+        
+    def set_setpoint(self, ThetaSet):
+        
+        self.Theta_Set = ThetaSet
+        
+    def Run(self, Theta_Act):
+        
+        PWM = (self.Theta_Set - Theta_Act)*self.KP_set
+        error = self.Theta_Set - Theta_Act
+        
+        PWM_Calc.time.append(utime.ticks_ms())
+        PWM_Calc.position.append(Theta_Act)
+        PWM_Calc.error.append(error)
+        
+        return PWM, error
+    
+    def Print_Data():
+        print(PWM_Calc.time)
+        print(PWM_Calc.position)
+         
         
         
         
