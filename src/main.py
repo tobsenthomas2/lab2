@@ -25,11 +25,16 @@ if __name__ == "__main__":
     Motor1=MotorDriver(pyb.Pin.board.PA10,pyb.Pin.board.PB4,pyb.Pin.board.PB5,3)
     Motor1.set_duty_cycle(90)
     encoder=EncoderClass(pyb.Pin.board.PB6,pyb.Pin.board.PB7,4)
+    time = []
+    position = []
     
-    while(1):
+    for i in range 400:
          Theta_Act = encoder.read()
          PWM = PWM_Calc(Theta_Set, Theta_Act, KP)
-         Motor1.set_duty_cycle(PWM)
+         Motor1.set_duty_cycle(PWM)         
+         time.append((i + 1)*0.01)
+         position.append(Theta_Act)
+         
          
          time.sleep(0.01) #updates 0.01s
     
