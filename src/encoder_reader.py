@@ -51,7 +51,7 @@ class EncoderClass:
         If less than the threshold, we assume this is counting up and has overflowed.
         We can scale this properly and vice versa for counting down.
         """
-        print("counter " +str(self.counter.counter())+" for encoderTim: " +str(self.counterTimer))
+        #print("counter " +str(self.counter.counter())+" for encoderTim: " +str(self.counterTimer))
         if (self.counter.counter()-self.prevCount <-threshold):
             self.totalPos+=self.counter.counter()-self.prevCount+65535
         elif (self.counter.counter()-self.prevCount > threshold):
@@ -62,6 +62,7 @@ class EncoderClass:
         
         self.prevCount=self.counter.counter()
         
+        return self.counter.counter()
     def zero(self):
         """!
         This method zeroes our counter value: our readable counter value
