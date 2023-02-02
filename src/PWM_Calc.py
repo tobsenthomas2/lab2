@@ -22,14 +22,14 @@ class PWM_Calc:
         self.timeinit = utime.ticks_ms()
     def set_KP(self, KP):
         
-        self.KP_set = KP
+        self.KP_set = float(KP)
         
     def set_setpoint(self, ThetaSet):
         
-        self.Theta_Set = ThetaSet
+        self.Theta_Set = float(ThetaSet)
     def Run(self, Theta_Act):
         
-        PWM = (self.Theta_Set - Theta_Act)*self.KP_set
+        PWM = ((self.Theta_Set - Theta_Act)*self.KP_set)/(self.Theta_Set*self.KP_set)*100
         error = self.Theta_Set - Theta_Act
         
         self.time.append(utime.ticks_ms()-self.timeinit)

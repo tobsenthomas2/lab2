@@ -17,26 +17,29 @@ if __name__ == "__main__":
         We can also call the set_duty_cycle() class to set a specific duty cycle that will
         run the motor in the correct direction at a specific speed
         """
+    Motor1=MotorDriver(pyb.Pin.board.PA10,pyb.Pin.board.PB4,pyb.Pin.board.PB5,3)
+    #Motor1.set_duty_cycle(0)
+    encoder=EncoderClass(pyb.Pin.board.PB6,pyb.Pin.board.PB7,4)
+    encoder.zero()
+    pwm = PWM_Calc()
     
     Theta_Set = input("set position" )
     KP = input("set KP")
     time_step = 0.01
     
-    Motor1=MotorDriver(pyb.Pin.board.PA10,pyb.Pin.board.PB4,pyb.Pin.board.PB5,3)
-    Motor1.set_duty_cycle(90)
-    encoder=EncoderClass(pyb.Pin.board.PB6,pyb.Pin.board.PB7,4)
-    pwm = PWM_Calc()
+    pwm.set_setpoint(Theta_Set)
+    pwm.set_KP(KP)
+
         
     for i in range (400):
          Theta_Act = encoder.read()
          PWM = pwm.Run(Theta_Act)
          
-         
          Motor1.set_duty_cycle(PWM)                
-         
+         print(PWM)
          time.sleep(time_step) #updates 0.01s
          
-         
+    Motor1.set_duty_cycle(0)        
     pwm.Print_Data()
     
     
