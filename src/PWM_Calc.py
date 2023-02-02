@@ -1,3 +1,6 @@
+import pyb
+import time
+import utime
 """!Supply as an input the setpoint, the desired location of the motor.
 
 Subtract the measured location of the motor from the setpoint; the difference is the error signal, a signed number indicating which way the motor is off and how far.
@@ -9,10 +12,14 @@ Send the actuation signal to the motor driver which you have already written to 
 #import matplotlib as 
 
 class PWM_Calc:
-    time = []
-    position = []
-    error = []
     
+    def __init__(self):
+        self.KP_set = 0
+        self.Theta_Set = 0
+        self.time = []
+        self.position = []
+        self.error = []
+        self.timeinit = utime.ticks_ms()
     def set_KP(self, KP):
         
         self.KP_set = KP
@@ -20,21 +27,20 @@ class PWM_Calc:
     def set_setpoint(self, ThetaSet):
         
         self.Theta_Set = ThetaSet
-        
     def Run(self, Theta_Act):
         
         PWM = (self.Theta_Set - Theta_Act)*self.KP_set
         error = self.Theta_Set - Theta_Act
         
-        PWM_Calc.time.append(utime.ticks_ms())
-        PWM_Calc.position.append(Theta_Act)
-        PWM_Calc.error.append(error)
+        self.time.append(utime.ticks_ms()-self.timeinit)
+        self.position.append(Theta_Act)
+        self.error.append(error)
         
-        return PWM, error
+        return PWM
     
-    def Print_Data():
-        print(PWM_Calc.time)
-        print(PWM_Calc.position)
+    def Print_Data(self):
+        print(self.time)
+        print(self.position)
          
         
         
