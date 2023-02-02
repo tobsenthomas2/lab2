@@ -16,6 +16,7 @@ if __name__ == "__main__":
         timer (3 or 5)
         We can also call the set_duty_cycle() class to set a specific duty cycle that will
         run the motor in the correct direction at a specific speed
+        #sdas
         """
     Theta_Set = input("set position" )
     KP = input("set KP")
