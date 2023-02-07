@@ -22,7 +22,7 @@
 #print (s_port.readline ().split (b','))
 
 
-import pyserial
+import serial
 
 with (serial.serial("COM11",115200) as ser):
     ser.flush() #clear Input buffer
