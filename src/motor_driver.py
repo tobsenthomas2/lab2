@@ -59,12 +59,23 @@ class MotorDriver:
         and for a positive input we can run CH 2 so it spins the 
         opposite direction for multidirectional capabilities
         """
+        
+        """This will saturate the motor to 0-100% for PWM"""
+        
         if (level<0):
-            self.ch1.pulse_width_percent (abs(level))
-            self.ch2.pulse_width_percent (0)
+            if(level<=-100):
+                self.ch1.pulse_width_percent (100)
+                self.ch2.pulse_width_percent (0)
+            else:
+                self.ch1.pulse_width_percent (abs(level))
+                self.ch2.pulse_width_percent (0)
         else:
-            self.ch1.pulse_width_percent (0)
-            self.ch2.pulse_width_percent (abs(level))
+            if(level>=100):
+                self.ch1.pulse_width_percent (0)
+                self.ch2.pulse_width_percent (100)
+            else:
+                self.ch1.pulse_width_percent (0)
+                self.ch2.pulse_width_percent (abs(level))
             
         
         #print (f"Setting duty cycle to {level}")

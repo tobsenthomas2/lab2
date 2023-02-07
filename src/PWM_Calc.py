@@ -1,6 +1,7 @@
 import pyb
 import time
 import utime
+import serial
 """!Supply as an input the setpoint, the desired location of the motor.
 
 Subtract the measured location of the motor from the setpoint; the difference is the error signal, a signed number indicating which way the motor is off and how far.
@@ -9,7 +10,8 @@ Multiply the error signal by a control gain called KP to produce a result called
 \mathrm{PWM} = K_p * (\theta_{setpoint} - \theta_{actual})
 
 Send the actuation signal to the motor driver which you have already written to control the magnitude and direction of motor torque."""
-#import matplotlib as 
+#import matplotlib as
+#KP = %/Ticks
 
 class PWM_Calc:
     
@@ -19,7 +21,8 @@ class PWM_Calc:
         self.time = []
         self.position = []
         self.error = []
-        self.timeinit = utime.ticks_ms()
+        self.pwm = []
+        
     def set_KP(self, KP):
         
         self.KP_set = float(KP)
@@ -27,20 +30,34 @@ class PWM_Calc:
     def set_setpoint(self, ThetaSet):
         
         self.Theta_Set = float(ThetaSet)
+        
     def Run(self, Theta_Act):
         
-        PWM = ((self.Theta_Set - Theta_Act)*self.KP_set)/(self.Theta_Set*self.KP_set)*100
+        PWM = ((self.Theta_Set - Theta_Act)*self.KP_set)
+        
+        #PWM needs to be between 0-1 (0*100%)
+        
         error = self.Theta_Set - Theta_Act
         
-        self.time.append(utime.ticks_ms()-self.timeinit)
+        self.time.append(utime.ticks_ms())
         self.position.append(Theta_Act)
         self.error.append(error)
+        self.pwm.append(PWM)
         
         return PWM
     
     def Print_Data(self):
-        print(self.time)
-        print(self.position)
+        for i in range(len(self.time)):
+            print(str(self.time[i]-self.time[0])+","+str(self.position[i]))
+            
+            
+
+        with serial.Serial ('COMx', 115200) as s_port:
+            for i in range(len(self.time)):
+                t = self.time[i]-self.time[0]
+                x = self.position[i]
+                s_port.write(f"{t},{x}\r\n")       #Write bytes, not a string
+        
          
         
         

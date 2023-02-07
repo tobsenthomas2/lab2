@@ -23,8 +23,9 @@ if __name__ == "__main__":
     encoder.zero()
     pwm = PWM_Calc()
     
-    Theta_Set = input("set position" )
-    KP = input("set KP")
+    Theta_Set = input("set position: ")
+    KP = input("set KP: ")
+    #KP = 0.025 for decent data
     time_step = 0.01
     
     pwm.set_setpoint(Theta_Set)
@@ -36,7 +37,6 @@ if __name__ == "__main__":
          PWM = pwm.Run(Theta_Act)
          
          Motor1.set_duty_cycle(PWM)                
-         print(PWM)
          time.sleep(time_step) #updates 0.01s
          
     Motor1.set_duty_cycle(0)        
