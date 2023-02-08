@@ -2,7 +2,8 @@ from PWM_Calc import PWM_Calc
 import pyb, time
 from encoder_reader import EncoderClass
 from  motor_driver import MotorDriver
-
+#com6 for shoe
+#com5 for stm32
 
 if __name__ == "__main__":
     """!
@@ -17,6 +18,7 @@ if __name__ == "__main__":
         We can also call the set_duty_cycle() class to set a specific duty cycle that will
         run the motor in the correct direction at a specific speed
         """
+    
     Motor1=MotorDriver(pyb.Pin.board.PA10,pyb.Pin.board.PB4,pyb.Pin.board.PB5,3)
     #Motor1.set_duty_cycle(0)
     encoder=EncoderClass(pyb.Pin.board.PB6,pyb.Pin.board.PB7,4)

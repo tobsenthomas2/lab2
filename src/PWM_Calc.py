@@ -1,7 +1,7 @@
 import pyb
 import time
 import utime
-import serial
+#import serial
 """!Supply as an input the setpoint, the desired location of the motor.
 
 Subtract the measured location of the motor from the setpoint; the difference is the error signal, a signed number indicating which way the motor is off and how far.
@@ -52,13 +52,19 @@ class PWM_Calc:
             
             
 
-        with serial.Serial ('COMx', 115200) as s_port:
-            for i in range(len(self.time)):
-                t = self.time[i]-self.time[0]
-                x = self.position[i]
-                s_port.write(f"{t},{x}\r\n")       #Write bytes, not a string
+#         with serial.Serial ('COMx', 115200) as s_port:
+#             for i in range(len(self.time)):
+#                 t = self.time[i]-self.time[0]
+#                 x = self.position[i]
+#                 s_port.write(f"{t},{x}\r\n")       #Write bytes, not a string
         
          
+        u2 = pyb.UART(2, baudrate=115200)      # Set up the second USB-serial port
+
+        for i in range(len(self.time)):
+                t = self.time[i]-self.time[0]
+                x = self.position[i]
+                u2.write(f"{t},{x}\r\n")       #Write bytes, not a string
         
         
         
