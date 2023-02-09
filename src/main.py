@@ -41,7 +41,7 @@ if __name__ == "__main__":
          Motor1.set_duty_cycle(PWM)                
          time.sleep(time_step) #updates 0.01s
          
-    Motor1.set_duty_cycle(0)        
+    Motor1.set_duty_cycle(0)       
     pwm.Print_Data()
     
     

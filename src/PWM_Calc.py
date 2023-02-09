@@ -47,8 +47,8 @@ class PWM_Calc:
         return PWM
     
     def Print_Data(self):
-        for i in range(len(self.time)):
-            print(str(self.time[i]-self.time[0])+","+str(self.position[i]))
+#         for i in range(len(self.time)):
+#             print(str(self.time[i]-self.time[0])+","+str(self.position[i]))
             
             
 
@@ -58,19 +58,22 @@ class PWM_Calc:
 #                 x = self.position[i]
 #                 s_port.write(f"{t},{x}\r\n")       #Write bytes, not a string
         
-         
-        u2 = pyb.UART(2, baudrate=115200)      # Set up the second USB-serial port
+        try: 
+            u2 = pyb.UART(2, baudrate=115200)      # Set up the second USB-serial port
 
-        for i in range(len(self.time)):
-                t = self.time[i]-self.time[0]
-                x = self.position[i]
-                u2.write(f"{t},{x}\r\n")       #Write bytes, not a string
+            for i in range(len(self.time)):
+                    t = self.time[i]-self.time[0]
+                    x = self.position[i]
+                    u2.write(f"{t},{x}\r\n")       #Write bytes, not a string
+                
+            #flag to tell PC last data point
+            u2.write(f"99999,99999\r\n")
             
-        #flag to tell PC last data point
-        u2.write(f"99999,99999\r\n")
-        
-        #send double for flag2 to tell PC last dataset --> no more plots
-        u2.write(f"99999,99999\r\n")
+            #send double for flag2 to tell PC last dataset --> no more plots
+            u2.write(f"99999,99999\r\n")
+        except:
+            print("An exception occurred. Sending Data didnt work")
+
         
         
         

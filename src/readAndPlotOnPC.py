@@ -48,8 +48,10 @@ def plot_data(input):
             # ignore row if data is not a float
             pass
     pyplot.plot(x, y)
+    pyplot.title("best guess - Kp good")
     pyplot.xlabel("time")
     pyplot.ylabel("value")
+    print("MAX Value: "+ str(max(y)))
     pyplot.show()
 
 with (serial.Serial("COM5",115200) as ser):
@@ -79,6 +81,7 @@ with (serial.Serial("COM5",115200) as ser):
             print(buf)
 
         plot_data(data)
+        
     time.sleep(5)
     print("last dataset was sent! will stop listening now")
     
