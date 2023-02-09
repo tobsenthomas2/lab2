@@ -66,7 +66,7 @@ class EncoderClass:
             
         
         self.prevCount=self.counter.counter()
-        return self.counter.counter()
+        return self.totalPos()
         
     def zero(self):
         """!
