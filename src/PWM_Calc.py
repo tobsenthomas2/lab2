@@ -65,6 +65,13 @@ class PWM_Calc:
                 t = self.time[i]-self.time[0]
                 x = self.position[i]
                 u2.write(f"{t},{x}\r\n")       #Write bytes, not a string
+            
+        #flag to tell PC last data point
+        u2.write(f"99999,99999\r\n")
+        
+        #send double for flag2 to tell PC last dataset --> no more plots
+        u2.write(f"99999,99999\r\n")
+        
         
         
         

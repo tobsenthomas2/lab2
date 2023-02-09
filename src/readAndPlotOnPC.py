@@ -22,12 +22,65 @@
 #print (s_port.readline ().split (b','))
 
 
+import sys
+sys.path.append('c:/users/admin/anaconda3/lib/site-packages')
+#issue: serial module not found --> pip show pyserial and add the path
 import serial
+import time
+from matplotlib import pyplot
 
-with (serial.serial("COM11",115200) as ser):
-    ser.flush() #clear Input buffer
-    ser.in_waiting()#NUM of CHArs in Buffer
+#cant start program from "usaual" python terminal --> use thonny python and use the following command
+#& 'C:\Program Files (x86)\Thonny\python.exe' .\readAndPlotOnPC.py
 
-    ser.read(n)
-    ser.readlines()#read until \n or \r
-    ser.readlines()
+def plot_data(input):
+    x = []
+    y = []
+    for line in input:
+        #print(line)
+        #data = line.split(',')
+        data=line
+        try:
+            x_val = float(data[0])
+            y_val = float(data[1])
+            x.append(x_val)
+            y.append(y_val)
+        except ValueError:
+            # ignore row if data is not a float
+            pass
+    pyplot.plot(x, y)
+    pyplot.xlabel("time")
+    pyplot.ylabel("value")
+    pyplot.show()
+
+with (serial.Serial("COM5",115200) as ser):
+    #ser.flush() #clear Input buffer
+    #ser.in_waiting()#NUM of CHArs in Buffer
+
+    #ser.read(n)
+    #ser.readlines()#read until \n or \r
+    #ser.readlines()
+    morePlots=True
+    while morePlots:
+        ser.flushInput()
+        ser.flushOutput()
+        data=[]
+        dataStream=1
+        while dataStream:
+            buf=ser.readline ().split (b',')
+
+            data.append(buf)
+            if buf==[b'99999', b'99999\r\n']:
+                dataStream=False
+                print("end works!")
+                data.pop()
+                if(ser.readline ().split (b',')==[b'99999', b'99999\r\n']):
+                    print("last plot. you can stop now")
+                    morePlots=False
+            print(buf)
+
+        plot_data(data)
+    time.sleep(5)
+    print("last dataset was sent! will stop listening now")
+    
+
+
