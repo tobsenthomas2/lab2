@@ -31,27 +31,30 @@ from matplotlib import pyplot
 
 #cant start program from "usaual" python terminal --> use thonny python and use the following command
 #& 'C:\Program Files (x86)\Thonny\python.exe' .\readAndPlotOnPC.py
-
+"""!
+The plot function takes in a data list that is 2 items wide (one for t, one for x). These are then stored line by line into two seperate lists, t and x, and each value is converted into a float.
+The pyplot function is then used to plot the two lists against each other.
+"""
 def plot_data(input):
+    t = []
     x = []
-    y = []
     for line in input:
         #print(line)
         #data = line.split(',')
         data=line
         try:
-            x_val = float(data[0])
-            y_val = float(data[1])
+            t_val = float(data[0])
+            x_val = float(data[1])
+            t.append(t_val)
             x.append(x_val)
-            y.append(y_val)
         except ValueError:
             # ignore row if data is not a float
             pass
-    pyplot.plot(x, y)
+    pyplot.plot(t, x)
     pyplot.title("best guess - Kp good")
     pyplot.xlabel("time")
     pyplot.ylabel("value")
-    print("MAX Value: "+ str(max(y)))
+    print("MAX Value: "+ str(max(x)))
     pyplot.show()
 
 with (serial.Serial("COM5",115200) as ser):
@@ -62,6 +65,12 @@ with (serial.Serial("COM5",115200) as ser):
     #ser.readlines()#read until \n or \r
     #ser.readlines()
     morePlots=True
+    """!
+    first while loop is set up for doing multiple plots in a row. Since that is not needed for this project it wont be used, but the structure is here for future applications.
+    The second while loop is true so long as the data is being sent in. Once the end of data flag has been sent, we exit the second while loop. Before entering this loop, we initialize the data list, and clear out the data stream.
+    Inside the second while loop, we take the next line from the stream of data, seperate it at the comma and store it in the next row of a list called data.
+    After the loop is exited, we input the data list into our plot function (shown above).
+    """
     while morePlots:
         ser.flushInput()
         ser.flushOutput()
@@ -78,7 +87,7 @@ with (serial.Serial("COM5",115200) as ser):
                 if(ser.readline ().split (b',')==[b'99999', b'99999\r\n']):
                     print("last plot. you can stop now")
                     morePlots=False
-            print(buf)
+            #print(buf)
 
         plot_data(data)
         
