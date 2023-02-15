@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=11"/>
 <meta name="generator" content="Doxygen 1.9.6"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>Lab1: motor_driver.MotorDriver Class Reference</title>
+<title>Lab0: motor_driver.MotorDriver Class Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -23,9 +23,9 @@
  <tr id="projectrow">
   <td id="projectlogo"><img alt="Logo" src="MELogo.png"/></td>
   <td id="projectalign">
-   <div id="projectname">Lab1<span id="projectnumber">&#160;1.0</span>
+   <div id="projectname">Lab0<span id="projectnumber">&#160;1.0</span>
    </div>
-   <div id="projectbrief">microPython Project - Sydney Gothenquist, Toby Moss Darci-Maher, Tobias Thomas</div>
+   <div id="projectbrief">First microPython Project - Sydney Gothenquist, Toby Moss Darci-Maher, Tobias Thomas</div>
   </td>
  </tr>
  </tbody>
@@ -152,10 +152,15 @@ Public Attributes</h2></td></tr>
 <p>Creates a motor driver by initializing GPIO pins and turning off the motor for safety. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">en_pin</td><td>(There will be several pin parameters) From EncoderClass() we call: In1pin and In2pin to define the pins (B6/B7 or C6/C7). And the TimerNR for the timer channel based on the In pins (TCh 4 or 8) From MotorDriver() we call: the pin to enable to motor (EN_Pin) and set the torque control pins (PB4/5 or PA0/1) as well as the corresponding timer (3 or 5) </td></tr>
+    <tr><td class="paramname">en_pin</td><td>(There will be several pin parameters) </td></tr>
+    <tr><td class="paramname">en_pin</td><td>the pin number for the enable pin, used to enable or disable the motor. </td></tr>
+    <tr><td class="paramname">in1pin</td><td>the pin number for the IN1 pin, used to control the direction of the motor. </td></tr>
+    <tr><td class="paramname">in2pin</td><td>the pin number for the IN2 pin, used to control the direction of the motor. </td></tr>
+    <tr><td class="paramname">timer</td><td>the timer number for the PWM timer, used to control the duty cycle of the motor.</td></tr>
   </table>
   </dd>
 </dl>
+<p>From EncoderClass() we call: In1pin and In2pin to define the pins (B6/B7 or C6/C7). And the TimerNR for the timer channel based on the In pins (TCh 4 or 8) From MotorDriver() we call: the pin to enable to motor (EN_Pin) and set the torque control pins (PB4/5 or PA0/1) as well as the corresponding timer (3 or 5) </p>
 
 </div>
 </div>
@@ -193,12 +198,12 @@ Public Attributes</h2></td></tr>
   </table>
   </dd>
 </dl>
-<p>For a negative input, we can run CH 1 so it spins one way and for a positive input we can run CH 2 so it spins the opposite direction for multidirectional capabilities </p>
-
+<p>For a negative input, we can run CH 1 so it spins one way and for a positive input we can run CH 2 so it spins the opposite direction for multidirectional capabilities</p>
+<pre class="fragment">This will saturate the motor to 0-100% for PWM</pre> 
 </div>
 </div>
 <hr/>The documentation for this class was generated from the following file:<ul>
-<li>G:/Meine Ablage/Uni/Auslandssemester/00_Class/secondQuater/Mechatrinics/lab/Lab1/src/motor_driver.py</li>
+<li>G:/Meine Ablage/Uni/Auslandssemester/00_Class/secondQuater/Mechatrinics/lab2/src/motor_driver.py</li>
 </ul>
 </div><!-- contents -->
 </div><!-- doc-content -->
