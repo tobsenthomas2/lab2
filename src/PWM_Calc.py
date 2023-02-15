@@ -11,15 +11,16 @@ Multiply the error signal by a control gain called KP to produce a result called
 
 Send the actuation signal to the motor driver which you have already written to control the magnitude and direction of motor torque."""
 
-"""!Class PWM_Calc: A class to implement a Proportional-Windup Controller.
+
+
+class PWM_Calc:
+    """!Class PWM_Calc: A class to implement a Proportional-Windup Controller.
 The class stores the time, position, error, and PWM values and has functions
 to set the controller's parameters, run the control loop, and print the stored
 data to the serial port.
 
 The constructor initializes the instance variables `KP_set`, `Theta_Set`, `time`, `position`, `error`, and `pwm` to 0.
 """
-
-class PWM_Calc:
     
     def __init__(self):
         self.KP_set = 0
