@@ -5,7 +5,7 @@ class EncoderClass:
     This class implements a motor driver for an ME405 kit. 
     """
     def __init__ (self, in1pin, in2pin, timerNR):
-         """! 
+        """! 
         Creates a motor driver by initializing GPIO
         pins and turning off the motor for safety. 
         @param en_pin (There will be several pin parameters)
@@ -73,7 +73,7 @@ class EncoderClass:
             
         
         self.prevCount=self.counter.counter()
-        return self.totalPos()
+        return self.totalPos
         
     def zero(self):
         """!
